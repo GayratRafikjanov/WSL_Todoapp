@@ -25,12 +25,13 @@ SECRET_KEY = 'django-insecure-_2u&2)ac3%#k=5i%0(75q63rk(a*e4u_b2c5s)sh&gw!bns07t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'tasks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -115,7 +116,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
+import os
+from pathlib import Path
+
+# Определяем базовый путь
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# URL для доступа к статическим файлам
+STATIC_URL = '/static/'
+
+# Путь к дополнительным директориям с статическими файлами
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Папка static в корне проекта
+]
+
+# Папка, в которую будут собираться все статические файлы при команде collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
