@@ -1,0 +1,36 @@
+{% comment %} <form method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">Login</button>
+</form>
+
+<form method="POST" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form> {% endcomment %}
+
+{% comment %} {% if user.is_authenticated %}
+    <p>You are already logged in.
+      <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form></p> {% endcomment %}
+
+{% comment %} {% else %} {% endcomment %}
+
+
+
+
+{% if user.is_not_authenticated %}
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form></p>
+{% else %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+{% endif %}
