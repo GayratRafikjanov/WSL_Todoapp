@@ -1,0 +1,57 @@
+<h2>Task List</h2>
+
+{% if page_obj %}
+<ul>
+  {% for task in page_obj %}
+  <li>
+    {{ task.title }} - {{ task.description }} -
+    {% if task.is_completed %}
+    Completed
+    {% else %}
+    Pending
+    {% endif %}
+
+
+    <a href="{% url 'update-task' pk=task.pk %}">1. Edit-task</a> <!-- Update_task -->
+    <!-- Link for delete -->
+    <a href="{% url 'delete-task' pk=task.pk %}">2. Delete</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No tasks available.</p>
+{% endif %}
+
+
+
+<div class="pagination">
+  <span class="current">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+  </span> <br>
+
+
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="{% url 'task_list_paginated' page=1 %}">&laquo; first</a>
+    {% if page_obj.has_previous %} <a href="{% url 'task_list_paginated' page=page_obj.previous_page_number %}">previous</a> {% endif %}
+    {% endif %}
+
+
+
+    {% if page_obj.has_next %}
+    <a href="{% url 'task_list_paginated' page=page_obj.next_page_number %}">next</a>
+    <a href="{% url 'task_list_paginated' page=page_obj.paginator.num_pages %}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div><br>
+
+
+<form method='POST' action="{% url 'create_task' %}">
+  {% csrf_token %}
+  <button type="submit">Create new task</button>
+</form>
+
+<form method="POST" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>

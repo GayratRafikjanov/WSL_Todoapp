@@ -1,0 +1,23 @@
+{% if user.is_authenticated %}
+  <meta http-equiv="refresh" content="2;url={% url 'task_list' %}" />
+  <form method="get" action="{% url 'task_list' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Login</button>
+  </form>
+{% else %}
+
+  <form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  {{form.as_p}}
+  <button type="submit">Login</button>
+  </form>
+{% endif %}
+
+<a>HIII</a>
+
+{% comment %} <p>Redirect URLs for task list:</p>
+<span>
+  <a href="{% url 'create_task' %}">Create task</a> <br>
+  <br><a href="{% url 'task_list' %}">Task list</a> 
+</span> {% endcomment %}
